@@ -1,8 +1,8 @@
 # Site settings
 title: Coinskro Pay
 description: "Integration guide for Coinskro Pay - Accept cryptocurrency payments on your website"
-baseurl: "/coinskro-pay"
-url: "https://coinskro.github.io"
+baseurl: "/coinskro-pay-testnet"
+url: "https://Coinskro.github.io"
 
 # Theme settings
 remote_theme: just-the-docs/just-the-docs
