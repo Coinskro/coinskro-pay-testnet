@@ -29,7 +29,7 @@ curl -X PUT https://api.coinskro.com/payment/create \
   -H "Content-Type: application/json" \
   -d '{
     "amount": 100.00,
-    "currency": "USDT",
+    "currency": "PI",
     "payment_type": "deposit"
   }'
 ```
@@ -39,7 +39,7 @@ curl -X PUT https://api.coinskro.com/payment/create \
 | Field | Type | Description |
 |:------|:-----|:------------|
 | `amount` | number | Amount to charge |
-| `currency` | string | Currency code (`USDT`, `BTC`, `ETH`, `USDC`) |
+| `currency` | string | Currency code (`PI`, `USDC`, `CSK`, `USDT`) |
 | `payment_type` | string | Use `deposit` for customer payments |
 
 ---
@@ -51,7 +51,7 @@ Track which customer made the payment:
 ```json
 {
   "amount": 100.00,
-  "currency": "USDT",
+  "currency": "PI",
   "payment_type": "deposit",
   "customer_email": "john@example.com",
   "customer_reference": "CUST_12345"
@@ -67,7 +67,7 @@ Redirect customers after payment:
 ```json
 {
   "amount": 100.00,
-  "currency": "USDT",
+  "currency": "PI",
   "payment_type": "deposit",
   "success_url": "https://yoursite.com/order/success?order_id=123",
   "failure_url": "https://yoursite.com/order/failed?order_id=123"
@@ -86,7 +86,7 @@ For e-commerce, include product details:
 ```json
 {
   "amount": 150.00,
-  "currency": "USDT",
+  "currency": "PI",
   "payment_type": "deposit",
   "customer_email": "customer@example.com",
   "item_list": {
@@ -115,7 +115,7 @@ Use your own order ID as the payment reference:
 ```json
 {
   "amount": 100.00,
-  "currency": "USDT",
+  "currency": "PI",
   "payment_type": "deposit",
   "payment_reference": "ORDER_2026_00123"
 }
@@ -133,7 +133,7 @@ Store custom data with the payment:
 ```json
 {
   "amount": 100.00,
-  "currency": "USDT",
+  "currency": "PI",
   "payment_type": "deposit",
   "meta_data": "{\"order_id\": \"123\", \"product_type\": \"subscription\", \"plan\": \"pro\"}"
 }
@@ -148,7 +148,7 @@ Choose who pays the transaction fee:
 ```json
 {
   "amount": 100.00,
-  "currency": "USDT",
+  "currency": "PI",
   "payment_type": "deposit",
   "fee_payer": "customer"
 }
@@ -171,7 +171,7 @@ Choose who pays the transaction fee:
       "id": "550e8400-e29b-41d4-a716-446655440000",
       "payment_reference": "PAY_abc123xyz",
       "amount": 100.00,
-      "currency": "USDT",
+      "currency": "PI",
       "payment_status": "unlinked",
       "payment_type": "deposit",
       "created_at": "2026-02-06T10:30:00Z"
@@ -205,7 +205,7 @@ curl https://api.coinskro.com/payment/info/PAY_abc123xyz
   "data": {
     "payment_reference": "PAY_abc123xyz",
     "amount": 100.00,
-    "currency": "USDT",
+    "currency": "PI",
     "payment_status": "completed",
     "created_at": "2026-02-06T10:30:00Z",
     "updated_at": "2026-02-06T10:35:00Z"
@@ -233,10 +233,10 @@ curl https://api.coinskro.com/payment/info/PAY_abc123xyz
 
 | Code | Currency | Min Amount |
 |:-----|:---------|:-----------|
-| `USDT` | Tether USD | $1.00 |
+| `PI` | PI Coin | $1.00 |
 | `USDC` | USD Coin | $1.00 |
-| `BTC` | Bitcoin | $5.00 |
-| `ETH` | Ethereum | $5.00 |
+| `USDT` | Tether | $5.00 |
+| `CSK` | Coinskro Token | $5.00 |
 
 ---
 
@@ -247,7 +247,7 @@ Here's a full example creating a payment for an e-commerce order:
 ```json
 {
   "amount": 299.99,
-  "currency": "USDT",
+  "currency": "PI",
   "payment_type": "deposit",
   "payment_reference": "ORD_20260206_001",
   "customer_email": "buyer@example.com",

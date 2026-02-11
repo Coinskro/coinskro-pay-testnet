@@ -130,5 +130,6 @@ After payment, the customer is redirected to your `success_url` or `failure_url`
 ## Need Help?
 
 - 📧 Email: support@coinskro.com
-- 💬 Discord: [Join our community](https://discord.gg/coinskro)
+- 💬 Telegram: [Join our community](https://t.me/coinskro)
+- 🐦 X: [Follow us](https://x.com/coinskro)
 - 📚 FAQ: [Frequently Asked Questions](/faq)

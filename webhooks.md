@@ -67,7 +67,7 @@ When an event occurs, we POST to your URL:
     "payment_reference": "PAY_abc123xyz",
     "integration_id": "123e4567-e89b-12d3-a456-426614174000",
     "amount": 100.00,
-    "currency": "USDT",
+    "currency": "PI",
     "status": "completed",
     "customer_email": "customer@example.com",
     "customer_reference": "CUST_12345",
