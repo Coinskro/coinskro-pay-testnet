@@ -37,7 +37,7 @@ back_to_top_text: "Back to top"
 # Aux links (top right navigation)
 aux_links:
   "Dashboard":
-    - "https://dashboard.coinskro.com"
+    - "https://coinskro.com"
 
 aux_links_new_tab: true
 

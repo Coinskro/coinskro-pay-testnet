@@ -188,7 +188,7 @@ Withdrawals are available once your balance exceeds the minimum withdrawal amoun
 
 ### How do I view my transaction history?
 
-Log in to your [dashboard](https://dashboard.coinskro.com) to view all payments, withdrawals, and account activity.
+Log in to your [dashboard](https://coinskro.com) to view all payments, withdrawals, and account activity.
 
 ---
 

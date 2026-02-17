@@ -35,7 +35,7 @@ Coinskro Pay provides two environments:
 
 ## Getting Test Keys
 
-1. Log in to your [Dashboard](https://dashboard.coinskro.com)
+1. Log in to your [Dashboard](https://coinskro.com)
 2. Select your integration
 3. Toggle to **Test Mode** (top-right switch)
 4. Copy your **Test Secret Key**
