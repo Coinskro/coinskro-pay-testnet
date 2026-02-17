@@ -1,6 +1,6 @@
 # Site settings
-title: Coinskro Pay
-description: "Integration guide for Coinskro Pay - Accept cryptocurrency payments on your website"
+title: Coinskro Docs
+description: "Developer documentation for Coinskro products — payments, wallets, and more"
 baseurl: "/coinskro-pay-testnet"
 url: "https://Coinskro.github.io"
 

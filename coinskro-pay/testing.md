@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Testing
-nav_order: 5
-permalink: /testing
+parent: Coinskro Pay
+nav_order: 4
+permalink: /coinskro-pay/testing
 ---
 
 # Testing Your Integration
@@ -107,19 +108,26 @@ Test your webhook endpoint with curl:
 ```bash
 curl -X POST https://yoursite.com/webhooks/coinskro \
   -H "Content-Type: application/json" \
+  -H "X-Signature: YOUR_COMPUTED_SIGNATURE" \
+  -H "X-Event-Id: test-event-001" \
   -d '{
-    "event": "payment_completed",
-    "timestamp": "2026-02-06T10:35:00Z",
-    "data": {
-      "payment_reference": "ORDER_TEST_001",
-      "integration_id": "test-integration-id",
-      "amount": 50.00,
-      "currency": "USDT",
-      "status": "completed",
-      "customer_email": "test@example.com"
-    }
+    "event_id": "test-event-001",
+    "payment_id": "550e8400-e29b-41d4-a716-446655440000",
+    "currency": "USDT",
+    "amount": 50.00,
+    "payment_reference": "ORDER_TEST_001",
+    "payment_status": "completed",
+    "service_fee": 0.25,
+    "customer_email": "test@example.com",
+    "customer_reference": "CUST_TEST_001",
+    "integration_id": "test-integration-id",
+    "event_type": "payment_completed",
+    "timestamp": 1738838100
   }'
 ```
+
+{: .note }
+> To compute a valid `X-Signature` for testing, see [Verifying Webhook Signatures](/coinskro-pay/webhooks#verifying-webhook-signatures).
 
 ---
 
@@ -192,7 +200,7 @@ Before going live, verify:
 - [ ] Secret key stored securely (environment variable)
 - [ ] Secret key never exposed in frontend code
 - [ ] HTTPS used for all API calls
-- [ ] Webhook endpoint validates requests
+- [ ] Webhook `X-Signature` verified on every request
 
 ---
 

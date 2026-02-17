@@ -2,128 +2,50 @@
 layout: default
 title: Home
 nav_order: 1
-description: "Coinskro Pay - Accept cryptocurrency payments on your website"
+description: "Coinskro Developer Docs — integrate payments, wallets, and more into your app"
 permalink: /
 ---
 
-# Coinskro Pay Integration Guide
+# Coinskro Developer Documentation
 {: .fs-9 }
 
-Accept cryptocurrency payments on your website in minutes.
+Everything you need to integrate Coinskro into your product.
 {: .fs-6 .fw-300 }
 
-[Quick Start](#quick-start){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
-[View Examples](/examples){: .btn .fs-5 .mb-4 .mb-md-0 }
+[Get Started with Coinskro Pay](/coinskro-pay/){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 
 ---
 
-## What is Coinskro Pay?
+## Our Products
 
-Coinskro Pay is a cryptocurrency payment gateway that lets you accept crypto payments from your customers. Whether you run an e-commerce store, subscription service, or any online business, Coinskro Pay makes it easy to receive payments in USDT, BTC, ETH, and more.
+Choose the product you want to integrate:
 
-### Why Choose Coinskro Pay?
+### 💳 [Coinskro Pay](/coinskro-pay/)
 
-✅ **Easy Integration** - Add payments in under 10 minutes  
-✅ **Low Fees** - Competitive transaction fees  
-✅ **Real-time Webhooks** - Get notified instantly when payments complete  
-✅ **No Chargebacks** - Cryptocurrency payments are final  
-✅ **Global Payments** - Accept payments from anywhere in the world  
+Accept cryptocurrency payments on your website in minutes. Create payments, handle webhooks, and manage transactions with a simple REST API.
 
----
+- Accept USDT, USDC, PI, and more
+- Real-time webhook notifications with signature verification
+- Complete code examples in Node.js, Python, PHP, and Go
+- Low fees, no chargebacks, global reach
 
-## Quick Start
-
-### Step 1: Get Your API Keys
-
-1. Sign up at [coinskro.com](https://coinskro.com)
-2. Create a new integration for your project
-3. Copy your **Secret Key** from the dashboard
-
-{: .warning }
-> Keep your Secret Key secure! Never expose it in frontend code.
-
-### Step 2: Create a Payment
-
-When a customer wants to pay, create a payment from your server:
-
-```bash
-curl -X PUT https://api.coinskro.com/payment/create \
-  -H "Authorization: Bearer YOUR_SECRET_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "amount": 50.00,
-    "currency": "USDT",
-    "payment_type": "deposit",
-    "customer_email": "customer@example.com",
-    "success_url": "https://yoursite.com/thank-you",
-    "failure_url": "https://yoursite.com/payment-failed"
-  }'
-```
-
-### Step 3: Redirect Customer
-
-The API returns a `PaymentURL`. Redirect your customer to this URL to complete payment:
-
-```json
-{
-  "message": "Payment created",
-  "data": {
-    "PaymentData": {
-      "payment_reference": "PAY_abc123xyz",
-      "amount": 50.00,
-      "currency": "USDT"
-    },
-    "PaymentURL": "https://pay.coinskro.com?reference=PAY_abc123xyz&app=..."
-  }
-}
-```
-
-### Step 4: Handle the Result
-
-After payment, the customer is redirected to your `success_url` or `failure_url`. For reliable order fulfillment, always use [webhooks](/webhooks).
+[View Coinskro Pay Docs →](/coinskro-pay/){: .btn .btn-outline .fs-4 }
 
 ---
 
-## Integration Flow
-
-```
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│  Your Site  │────▶│  Your API   │────▶│ Coinskro Pay│
-│  (Frontend) │     │  (Backend)  │     │    API      │
-└─────────────┘     └─────────────┘     └─────────────┘
-       │                   │                   │
-       │  1. Checkout      │                   │
-       │─────────────────▶│                   │
-       │                   │  2. Create Payment│
-       │                   │─────────────────▶│
-       │                   │                   │
-       │                   │  3. Payment URL   │
-       │                   │◀─────────────────│
-       │  4. Redirect      │                   │
-       │◀─────────────────│                   │
-       │                   │                   │
-       │         5. Customer pays on Coinskro  │
-       │─────────────────────────────────────▶│
-       │                   │                   │
-       │                   │  6. Webhook       │
-       │                   │◀─────────────────│
-       │                   │                   │
-       │  7. Order Complete│                   │
-       │◀─────────────────│                   │
-       │                   │                   │
-```
+{: .note }
+> **More products coming soon.** We're building new tools for developers — wallets, subscriptions, payouts, and more. Watch this space or [follow us on X](https://x.com/coinskro) for updates.
 
 ---
 
-## Next Steps
+## Quick Links
 
-| Guide | Description |
-|:------|:------------|
-| [Create Payments](/payments) | Learn all payment options |
-| [Handle Webhooks](/webhooks) | Get real-time payment notifications |
-| [Code Examples](/examples) | Copy-paste examples in your language |
-| [Testing](/testing) | Test your integration before going live |
-| [Error Handling](/errors) | Handle errors gracefully |
+| Resource | Description |
+|:---------|:------------|
+| [Coinskro Pay — Quick Start](/coinskro-pay/) | Create your first payment in under 10 minutes |
+| [Coinskro Pay — Webhooks](/coinskro-pay/webhooks) | Get notified when payments complete |
+| [Coinskro Pay — Code Examples](/coinskro-pay/examples) | Copy-paste examples for popular languages |
+| [Coinskro Pay — Testing](/coinskro-pay/testing) | Test your integration before going live |
 
 ---
 
@@ -132,4 +54,3 @@ After payment, the customer is redirected to your `success_url` or `failure_url`
 - 📧 Email: support@coinskro.com
 - 💬 Telegram: [Join our community](https://t.me/coinskro)
 - 🐦 X: [Follow us](https://x.com/coinskro)
-- 📚 FAQ: [Frequently Asked Questions](/faq)

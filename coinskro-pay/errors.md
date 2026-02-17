@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Error Handling
-nav_order: 6
-permalink: /errors
+parent: Coinskro Pay
+nav_order: 5
+permalink: /coinskro-pay/errors
 ---
 
 # Error Handling

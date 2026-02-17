@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Webhooks
-nav_order: 3
-permalink: /webhooks
+parent: Coinskro Pay
+nav_order: 2
+permalink: /coinskro-pay/webhooks
 ---
 
 # Webhooks

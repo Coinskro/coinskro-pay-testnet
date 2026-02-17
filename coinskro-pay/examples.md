@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Code Examples
-nav_order: 4
-permalink: /examples
+parent: Coinskro Pay
+nav_order: 3
+permalink: /coinskro-pay/examples
 ---
 
 # Code Examples
@@ -26,9 +27,8 @@ Ready-to-use code snippets for popular languages and frameworks.
 ```javascript
 const express = require('express');
 const axios = require('axios');
+const crypto = require('crypto');
 const app = express();
-
-app.use(express.json());
 
 const COINSKRO_SECRET_KEY = process.env.COINSKRO_SECRET_KEY;
 const COINSKRO_API = 'https://api.coinskro.com';
@@ -73,20 +73,30 @@ app.post('/checkout', async (req, res) => {
 });
 
 // Handle webhook
-app.post('/webhooks/coinskro', async (req, res) => {
+app.post('/webhooks/coinskro', express.raw({ type: 'application/json' }), async (req, res) => {
+  const signature = req.headers['x-signature'];
+  const expected = crypto
+    .createHmac('sha256', COINSKRO_SECRET_KEY)
+    .update(req.body)
+    .digest('base64');
+
+  if (!crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected))) {
+    return res.status(401).json({ error: 'Invalid signature' });
+  }
+
   res.status(200).json({ received: true });
-  
-  const { event, data } = req.body;
-  
-  if (event === 'payment_completed') {
-    const orderId = data.payment_reference.replace('ORDER_', '');
-    
+
+  const payload = JSON.parse(req.body);
+
+  if (payload.event_type === 'payment_completed') {
+    const orderId = payload.payment_reference.replace('ORDER_', '');
+
     // Update order status
     // await db.orders.update(orderId, { status: 'paid', paid_at: new Date() });
-    
+
     // Send confirmation email
-    // await sendOrderConfirmation(data.customer_email, orderId);
-    
+    // await sendOrderConfirmation(payload.customer_email, orderId);
+
     console.log(`Order ${orderId} paid successfully!`);
   }
 });
@@ -102,6 +112,9 @@ app.listen(3000, () => console.log('Server running on port 3000'));
 
 ```python
 import json
+import hmac
+import hashlib
+import base64
 import requests
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -151,12 +164,21 @@ def coinskro_webhook(request):
     if request.method != 'POST':
         return JsonResponse({'error': 'Method not allowed'}, status=405)
     
-    payload = json.loads(request.body)
-    event = payload.get('event')
-    data = payload.get('data')
+    raw_body = request.body
+    signature = request.headers.get('X-Signature', '')
     
-    if event == 'payment_completed':
-        payment_ref = data['payment_reference']
+    # Verify signature
+    expected = base64.b64encode(
+        hmac.new(COINSKRO_SECRET_KEY.encode(), raw_body, hashlib.sha256).digest()
+    ).decode()
+    if not hmac.compare_digest(signature, expected):
+        return JsonResponse({'error': 'Invalid signature'}, status=401)
+    
+    payload = json.loads(raw_body)
+    event_type = payload.get('event_type')
+    
+    if event_type == 'payment_completed':
+        payment_ref = payload.get('payment_reference')
         order_id = payment_ref.replace('ORDER_', '')
         
         # Update order in database
@@ -230,12 +252,20 @@ class PaymentController extends Controller
     
     public function webhook(Request $request)
     {
-        $payload = $request->all();
-        $event = $payload['event'] ?? null;
-        $data = $payload['data'] ?? [];
+        $rawBody = $request->getContent();
+        $signature = $request->header('X-Signature', '');
         
-        if ($event === 'payment_completed') {
-            $paymentRef = $data['payment_reference'];
+        // Verify signature
+        $expected = base64_encode(hash_hmac('sha256', $rawBody, env('COINSKRO_SECRET_KEY'), true));
+        if (!hash_equals($expected, $signature)) {
+            return response()->json(['error' => 'Invalid signature'], 401);
+        }
+        
+        $payload = json_decode($rawBody, true);
+        $eventType = $payload['event_type'] ?? null;
+        
+        if ($eventType === 'payment_completed') {
+            $paymentRef = $payload['payment_reference'];
             $orderId = str_replace('ORDER_', '', $paymentRef);
             
             // Update order status
@@ -268,6 +298,10 @@ package main
 
 import (
     "bytes"
+    "crypto/hmac"
+    "crypto/sha256"
+    "crypto/subtle"
+    "encoding/base64"
     "encoding/json"
     "fmt"
     "io"
@@ -298,12 +332,11 @@ type PaymentResponse struct {
 }
 
 type WebhookPayload struct {
-    Event string `json:"event"`
-    Data  struct {
-        PaymentReference string  `json:"payment_reference"`
-        Amount           float64 `json:"amount"`
-        CustomerEmail    string  `json:"customer_email"`
-    } `json:"data"`
+    EventID          string  `json:"event_id"`
+    PaymentReference string  `json:"payment_reference"`
+    Amount           float64 `json:"amount"`
+    EventType        string  `json:"event_type"`
+    CustomerEmail    string  `json:"customer_email"`
 }
 
 func createPayment(w http.ResponseWriter, r *http.Request) {
@@ -349,14 +382,31 @@ func createPayment(w http.ResponseWriter, r *http.Request) {
 }
 
 func webhookHandler(w http.ResponseWriter, r *http.Request) {
-    var payload WebhookPayload
-    json.NewDecoder(r.Body).Decode(&payload)
+    rawBody, err := io.ReadAll(r.Body)
+    if err != nil {
+        http.Error(w, "Failed to read body", http.StatusBadRequest)
+        return
+    }
+    defer r.Body.Close()
 
-    if payload.Event == "payment_completed" {
+    // Verify signature
+    signature := r.Header.Get("X-Signature")
+    mac := hmac.New(sha256.New, []byte(os.Getenv("COINSKRO_SECRET_KEY")))
+    mac.Write(rawBody)
+    expected := base64.StdEncoding.EncodeToString(mac.Sum(nil))
+    if subtle.ConstantTimeCompare([]byte(expected), []byte(signature)) != 1 {
+        http.Error(w, "Invalid signature", http.StatusUnauthorized)
+        return
+    }
+
+    var payload WebhookPayload
+    json.Unmarshal(rawBody, &payload)
+
+    if payload.EventType == "payment_completed" {
         fmt.Printf("Payment %s completed for $%.2f\n",
-            payload.Data.PaymentReference,
-            payload.Data.Amount)
-        
+            payload.PaymentReference,
+            payload.Amount)
+
         // Update order in database
     }
 

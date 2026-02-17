@@ -1,8 +1,9 @@
 ---
 layout: default
 title: FAQ
-nav_order: 7
-permalink: /faq
+parent: Coinskro Pay
+nav_order: 6
+permalink: /coinskro-pay/faq
 ---
 
 # Frequently Asked Questions
@@ -65,7 +66,7 @@ Contact us for platform-specific integration support.
 
 ### How do I test my integration?
 
-Use **Test Mode** with `sk_test_` keys. Test payments don't involve real cryptocurrency. See our [Testing Guide](/testing).
+Use **Test Mode** with `sk_test_` keys. Test payments don't involve real cryptocurrency. See our [Testing Guide](/coinskro-pay/testing).
 
 ### What happens if my webhook endpoint is down?
 
@@ -77,7 +78,7 @@ We retry failed webhooks up to 5 times over 24 hours. You can also manually retr
 
 ### How do I know when a payment is complete?
 
-Use [webhooks](/webhooks) - we'll POST to your URL when payment completes. Don't rely only on redirect URLs.
+Use [webhooks](/coinskro-pay/webhooks) - we'll POST to your URL when payment completes. Don't rely only on redirect URLs.
 
 ### Can I refund a payment?
 
@@ -135,7 +136,7 @@ Common causes:
 
 ### How do I verify webhooks are from Coinskro?
 
-Check the `X-Coinskro-Signature` header. See [Webhook Verification](/webhooks#verifying-webhooks).
+Check the `X-Coinskro-Signature` header. See [Webhook Verification](/coinskro-pay/webhooks#verifying-webhook-signatures).
 
 ### What if I process the same webhook twice?
 

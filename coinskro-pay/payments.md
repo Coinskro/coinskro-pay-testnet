@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Creating Payments
-nav_order: 2
-permalink: /payments
+parent: Coinskro Pay
+nav_order: 1
+permalink: /coinskro-pay/payments
 ---
 
 # Creating Payments
@@ -185,7 +186,7 @@ Choose who pays the transaction fee:
 
 1. Save the `payment_reference` in your database
 2. Redirect your customer to `PaymentURL`
-3. Wait for the [webhook](/webhooks) to confirm payment
+3. Wait for the [webhook](/coinskro-pay/webhooks) to confirm payment
 
 ---
 
