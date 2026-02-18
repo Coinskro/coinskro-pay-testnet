@@ -1,0 +1,213 @@
+// Coinskro Brand Color Scheme for Just the Docs
+// Yellow:  #ffcc29
+// Blue:    #000066
+// Black:   #1e1e1e (darkest)
+// Grays:   #2c2c2c, #2e2e2e, #3e3e3e (lighter variants)
+
+// ─── Brand tokens ────────────────────────────────────
+$coinskro-yellow:      #ffcc29;
+$coinskro-blue:        #000066;
+$coinskro-black:       #1e1e1e;
+$coinskro-gray-dark:   #2c2c2c;
+$coinskro-gray-mid:    #2e2e2e;
+$coinskro-gray-light:  #3e3e3e;
+
+// ─── Base body ───────────────────────────────────────
+$body-background-color:        $coinskro-black;
+$sidebar-color:                $coinskro-gray-dark;
+$body-text-color:              #e0e0e0;
+$body-heading-color:           #ffffff;
+$search-background-color:      $coinskro-gray-mid;
+
+// ─── Links ───────────────────────────────────────────
+$link-color:                   $coinskro-yellow;
+
+// ─── Navigation / Sidebar ────────────────────────────
+$nav-child-link-color:         #cccccc;
+
+// ─── Code blocks ─────────────────────────────────────
+$code-background-color:        $coinskro-gray-mid;
+
+// ─── Buttons ─────────────────────────────────────────
+$btn-primary-color:            $coinskro-yellow;
+
+// ─── Search ──────────────────────────────────────────
+$search-result-preview-color:  #bbbbbb;
+
+// ─── Borders ─────────────────────────────────────────
+$border-color:                 $coinskro-gray-light;
+
+// ─── Footer ──────────────────────────────────────────
+$footer-background-color:      $coinskro-gray-dark;
+
+// ─── Custom overrides (post-variable) ────────────────
+// These use raw CSS so they apply after Just the Docs compiles.
+
+// stylelint-disable
+:root {
+  --coinskro-yellow: #{$coinskro-yellow};
+  --coinskro-blue: #{$coinskro-blue};
+}
+// stylelint-enable
+
+// Page & content background
+.main-content {
+  background-color: $coinskro-black;
+}
+
+// Sidebar
+.site-nav,
+.nav-list .nav-list-item {
+  background-color: $coinskro-gray-dark;
+}
+
+.nav-list .nav-list-item a {
+  color: #e0e0e0;
+
+  &:hover,
+  &.active {
+    color: $coinskro-yellow;
+    background-color: $coinskro-gray-light;
+  }
+}
+
+// Site title / logo
+.site-title {
+  color: $coinskro-yellow !important;
+}
+
+// Search input
+.search-input {
+  background-color: $coinskro-gray-mid;
+  border-color: $coinskro-gray-light;
+  color: #e0e0e0;
+}
+
+// Headings
+.main-content {
+  h1, h2, h3, h4, h5, h6 {
+    color: #ffffff;
+  }
+
+  h1 {
+    border-bottom-color: $coinskro-yellow;
+  }
+}
+
+// Inline code
+code {
+  background-color: $coinskro-gray-mid;
+  color: $coinskro-yellow;
+  border: 1px solid $coinskro-gray-light;
+}
+
+// Code blocks
+pre {
+  background-color: $coinskro-gray-dark;
+}
+
+// Horizontal rules
+hr {
+  border-color: $coinskro-gray-light;
+}
+
+// Tables
+.main-content {
+  table {
+    th {
+      background-color: $coinskro-gray-dark;
+      color: $coinskro-yellow;
+      border-color: $coinskro-gray-light;
+    }
+
+    td {
+      background-color: $coinskro-black;
+      border-color: $coinskro-gray-light;
+      color: #e0e0e0;
+    }
+  }
+}
+
+// Buttons
+.btn-primary {
+  background-color: $coinskro-yellow;
+  color: $coinskro-black;
+  border-color: $coinskro-yellow;
+
+  &:hover {
+    background-color: darken($coinskro-yellow, 8%);
+    color: $coinskro-black;
+  }
+}
+
+.btn-outline {
+  color: $coinskro-yellow;
+  border-color: $coinskro-yellow;
+
+  &:hover {
+    background-color: $coinskro-yellow;
+    color: $coinskro-black;
+  }
+}
+
+// Aux links (top-right nav)
+.aux-nav .aux-nav-list-item a {
+  color: $coinskro-yellow;
+
+  &:hover {
+    color: darken($coinskro-yellow, 10%);
+  }
+}
+
+// Footer
+.site-footer {
+  background-color: $coinskro-gray-dark;
+  border-top-color: $coinskro-gray-light;
+  color: #aaaaaa;
+}
+
+// Back to top
+.back-to-top {
+  color: $coinskro-yellow;
+}
+
+// Callout overrides
+.note,
+.callout-note {
+  border-left-color: $coinskro-blue;
+}
+
+// Search results
+.search-results {
+  background-color: $coinskro-gray-dark;
+
+  .search-result {
+    border-color: $coinskro-gray-light;
+
+    a {
+      color: $coinskro-yellow;
+    }
+  }
+}
+
+// Selection highlight
+::selection {
+  background: rgba($coinskro-yellow, 0.3);
+  color: #ffffff;
+}
+
+// Scrollbar (webkit)
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: $coinskro-black;
+}
+::-webkit-scrollbar-thumb {
+  background: $coinskro-gray-light;
+  border-radius: 4px;
+
+  &:hover {
+    background: lighten($coinskro-gray-light, 10%);
+  }
+}
