@@ -12,7 +12,7 @@ permalink: /
 Everything you need to integrate Coinskro into your product.
 {: .fs-6 .fw-300 }
 
-[Get Started with Coinskro Pay](/coinskro-pay/){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
+[Get Started with Coinskro Pay](/coinskro-pay-testnet/coinskro-pay/){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 
 ---
 
