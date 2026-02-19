@@ -61,14 +61,29 @@ $footer-background-color:      $coinskro-gray-dark;
   background-color: $coinskro-gray-dark;
 }
 
-.nav-list .nav-list-item a {
+// Kill any default gradient / image on nav links
+.nav-list .nav-list-item a,
+.nav-list .nav-list-item .nav-list-link {
   color: #e0e0e0;
+  background-image: none !important;
+  background: $coinskro-gray-dark !important;
 
-  &:hover,
-  &.active {
+  &:hover {
     color: $coinskro-yellow;
-    background-color: $coinskro-gray-light;
+    background: $coinskro-gray-light !important;
+    background-image: none !important;
   }
+}
+
+// Active nav item — solid color, no gradient
+.nav-list-item .nav-list-link.active,
+.nav-list .nav-list-item a.active,
+.nav-list .nav-list-item.active > a,
+.site-nav .nav-list-item.active .nav-list-link {
+  color: $coinskro-yellow !important;
+  background: $coinskro-gray-light !important;
+  background-image: none !important;
+  border-left: 3px solid $coinskro-yellow;
 }
 
 // Site title / logo
