@@ -36,9 +36,10 @@ Coinskro Pay is a cryptocurrency payment gateway that lets you accept crypto pay
 
 ### Step 1: Get Your API Keys
 
-1. Sign up at [coinskro.com](https://coinskro.com)
-2. Create a new integration for your project
-3. Copy your **Secret Key** from the dashboard
+1. Sign up at [coinskro.com](https://coinskro.com) for mainnet or [testnet.coinskro.com](https://testnet.coinskro.com) for testing 
+2. Navigate to the services section and click on "Coinskro Pay"
+3. Create a new app for your project under the Coinskro Pay dashboard
+4. Copy your **Secret Key** from the dashboard
 
 {: .warning }
 > Keep your Secret Key secure! Never expose it in frontend code.
