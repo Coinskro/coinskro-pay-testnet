@@ -39,7 +39,7 @@ Coinskro Pay is a cryptocurrency payment gateway that lets you accept crypto pay
 1. Sign up at [coinskro.com](https://coinskro.com) for mainnet or [testnet.coinskro.com](https://testnet.coinskro.com) for testing 
 2. Navigate to the services section and click on "Coinskro Pay"
 3. Create a new app for your project under the Coinskro Pay dashboard
-4. Copy your **Secret Key** from the dashboard
+4. Navigate to the integrations tab and copy your **Secret Key** from the dashboard
 
 {: .warning }
 > Keep your Secret Key secure! Never expose it in frontend code.
@@ -54,7 +54,7 @@ curl -X PUT https://api.coinskro.com/payment/create \
   -H "Content-Type: application/json" \
   -d '{
     "amount": 50.00,
-    "currency": "USDT",
+    "currency": "PI",
     "payment_type": "deposit",
     "customer_email": "customer@example.com",
     "success_url": "https://yoursite.com/thank-you",
@@ -73,7 +73,7 @@ The API returns a `PaymentURL`. Redirect your customer to this URL to complete p
     "PaymentData": {
       "payment_reference": "PAY_abc123xyz",
       "amount": 50.00,
-      "currency": "USDT"
+      "currency": "PI"
     },
     "PaymentURL": "https://pay.coinskro.com?reference=PAY_abc123xyz&app=..."
   }
