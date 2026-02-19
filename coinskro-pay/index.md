@@ -44,6 +44,11 @@ Coinskro Pay is a cryptocurrency payment gateway that lets you accept crypto pay
 {: .warning }
 > Keep your Secret Key secure! Never expose it in frontend code.
 
+
+{: .note }
+> Before you integrate on your backend,you can test your app credentials using our demo environment at [Demo Website](https://testnet.coinskro.com/csk-pay-demo)
+
+
 ### Step 2: Create a Payment
 
 When a customer wants to pay, create a payment from your server:
@@ -61,6 +66,7 @@ curl -X PUT https://api.coinskro.com/payment/create \
     "failure_url": "https://yoursite.com/payment-failed"
   }'
 ```
+
 
 ### Step 3: Redirect Customer
 
