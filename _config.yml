@@ -1,8 +1,8 @@
 # Site settings
 title: Coinskro Docs
 description: "Developer documentation for Coinskro products — payments, wallets, and more"
-baseurl: "/coinskro-pay-testnet"
-url: "https://Coinskro.github.io"
+baseurl: ""
+url: "https://doc.coinskro.com"
 
 # Theme settings
 remote_theme: just-the-docs/just-the-docs
