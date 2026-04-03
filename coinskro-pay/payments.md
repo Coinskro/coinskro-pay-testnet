@@ -274,3 +274,53 @@ Here's a full example creating a payment for an e-commerce order:
   "meta_data": "{\"shipping_address\": \"123 Main St\", \"coupon\": \"SAVE10\"}"
 }
 ```
+
+---
+
+## Fund a User's Wallet (Business → Coinskro User)
+
+Credit a Coinskro user's wallet directly from your business (integration) balance. This is useful for payouts, rewards, cashback, or any scenario where your business needs to push funds to a specific user.
+
+{: .note }
+> Your integration balance must have sufficient funds for the selected currency. The debit happens instantly and atomically.
+
+```bash
+curl -X POST https://api.coinskro.com/payment/fund-user \
+  -H "Authorization: Bearer YOUR_SECRET_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "john_doe",
+    "amount": 25.00,
+    "currency": "usdt-bep20"
+  }'
+```
+
+**Request Fields:**
+
+| Field | Type | Required | Description |
+|:------|:-----|:---------|:------------|
+| `username` | string | ✅ | The Coinskro username of the recipient |
+| `amount` | number | ✅ | Positive amount to send |
+| `currency` | string | ✅ | Currency code (e.g. `pi`, `usdt-bep20`) |
+
+**Success Response `200`:**
+
+```json
+{
+  "message": "User wallet funded successfully",
+  "data": null
+}
+```
+
+**Error Responses:**
+
+| Status | Message | Cause |
+|:-------|:--------|:------|
+| `400` | `username is required` / `amount must be a positive number` | Missing or invalid fields |
+| `401` | `Missing or invalid Authorization header` | Bad / missing Bearer token |
+| `403` | `Insufficient business balance` | Integration wallet has insufficient funds |
+| `404` | `User not found` | No Coinskro account for the given username |
+| `502` | `Failed to reach Coinskro backend` | Upstream connectivity error |
+
+{: .warning }
+> This endpoint debits your **integration wallet balance**, not a per-payment escrow. Ensure your balance is topped up before calling it.

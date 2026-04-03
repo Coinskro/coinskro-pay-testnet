@@ -504,3 +504,119 @@ document.getElementById('pay-button').addEventListener('click', async () => {
 });
 </script>
 ```
+
+---
+
+## Fund a User's Wallet
+
+Send funds from your business wallet to a Coinskro user account.
+
+### Node.js
+
+```javascript
+const axios = require('axios');
+
+async function fundUser({ username, amount, currency }) {
+  const response = await axios.post(
+    'https://api.coinskro.com/payment/fund-user',
+    { username, amount, currency },
+    {
+      headers: {
+        'Authorization': `Bearer ${process.env.COINSKRO_SECRET_KEY}`,
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+  return response.data;
+}
+
+// Example: pay out a reward to a user
+fundUser({ username: 'john_doe', amount: 25.00, currency: 'usdt-bep20' })
+  .then(data => console.log('Funded:', data))
+  .catch(err => console.error('Error:', err.response?.data));
+```
+
+### Python
+
+```python
+import requests
+import os
+
+def fund_user(username: str, amount: float, currency: str):
+    response = requests.post(
+        'https://api.coinskro.com/payment/fund-user',
+        json={'username': username, 'amount': amount, 'currency': currency},
+        headers={
+            'Authorization': f'Bearer {os.environ["COINSKRO_SECRET_KEY"]}',
+            'Content-Type': 'application/json',
+        },
+    )
+    response.raise_for_status()
+    return response.json()
+
+# Example
+result = fund_user('john_doe', 25.00, 'usdt-bep20')
+print(result)
+```
+
+### PHP / Laravel
+
+```php
+use Illuminate\Support\Facades\Http;
+
+public function fundUser(string $username, float $amount, string $currency): array
+{
+    $response = Http::withHeaders([
+        'Authorization' => 'Bearer ' . env('COINSKRO_SECRET_KEY'),
+        'Content-Type'  => 'application/json',
+    ])->post('https://api.coinskro.com/payment/fund-user', [
+        'username' => $username,
+        'amount'   => $amount,
+        'currency' => $currency,
+    ]);
+
+    if ($response->failed()) {
+        throw new \Exception('Fund user failed: ' . $response->body());
+    }
+
+    return $response->json();
+}
+```
+
+### Go
+
+```go
+package main
+
+import (
+    "bytes"
+    "encoding/json"
+    "fmt"
+    "net/http"
+    "io"
+)
+
+func fundUser(secretKey, username, currency string, amount float64) error {
+    payload, _ := json.Marshal(map[string]interface{}{
+        "username": username,
+        "amount":   amount,
+        "currency": currency,
+    })
+
+    req, _ := http.NewRequest(http.MethodPost,
+        "https://api.coinskro.com/payment/fund-user",
+        bytes.NewBuffer(payload))
+    req.Header.Set("Authorization", "Bearer "+secretKey)
+    req.Header.Set("Content-Type", "application/json")
+
+    resp, err := http.DefaultClient.Do(req)
+    if err != nil {
+        return err
+    }
+    defer resp.Body.Close()
+
+    body, _ := io.ReadAll(resp.Body)
+    fmt.Println(string(body))
+    return nil
+}
+```
